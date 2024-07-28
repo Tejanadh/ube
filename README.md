@@ -34,13 +34,14 @@ Ube (ooh-bay) is a program that displays statistics about your code. Ube will sh
 ## Installation <a name="installation"></a>
 
 ### macOS <a name="macos"></a>
-1. Download the appropriate release archive for your platform from the [Latest Release](https://github.com/ramirezfernando/ube/releases/tag/v2.0.0) page:
-   - For Intel-based Macs: [ube_2.0.0_darwin_amd64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.0.0/ube_2.0.0_darwin_amd64.tar.gz)
-   - For Apple Silicon Macs: [ube_2.0.0_darwin_arm64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.0.0/ube_2.0.0_darwin_arm64.tar.gz)
+1. Download the appropriate release archive for your platform from the [Latest Release](https://github.com/ramirezfernando/ube-cli/releases) page:
+   - For Intel-based Macs: [ube_2.1.0_darwin_amd64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.1.0/ube-cli_2.1.0_darwin_amd64.tar.gz)
+   - For Apple Silicon Macs: [ube_2.1.0_darwin_arm64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.1.0/ube-cli_2.1.0_darwin_arm64.tar.gz)
 
 2. Extract the archive from your downloads folder using the following command in your terminal:
     ```bash
-    $ tar -xzf ~/Downloads/ube_2.0.0_darwin_amd64.tar.gz # or ube_2.0.0_darwin_arm64.tar.gz
+    # Use the name of your downloaded release archive
+    $ tar -xzf ~/Downloads/example.tar.gz
     ```
 3. Move the extracted binary to a directory in your PATH for convenient access from any directory:
     ```bash
@@ -52,13 +53,14 @@ Ube (ooh-bay) is a program that displays statistics about your code. Ube will sh
     ```
 
 ### Linux <a name="linux"></a>
-1. Download the appropriate release archive for your platform from the [Latest Release](https://github.com/ramirezfernando/ube/releases/tag/v2.0.0) page:
-    - For 32-bit systems: [ube_2.0.0_linux_386.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.0.0/ube_2.0.0_linux_386.tar.gz)
-    - For 64-bit systems: [ube_2.0.0_linux_amd64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.0.0/ube_2.0.0_linux_amd64.tar.gz)
-    - For ARM 64-bit systems: [ube_2.0.0_linux_arm64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.0.0/ube_2.0.0_linux_arm64.tar.gz)
+1. Download the appropriate release archive for your platform from the [Latest Release](https://github.com/ramirezfernando/ube-cli/releases) page:
+    - For 32-bit systems: [ube-cli_2.1.0_linux_386.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.1.0/ube-cli_2.1.0_linux_386.tar.gz)
+    - For 64-bit systems: [ube-cli_2.1.0_linux_amd64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.1.0/ube-cli_2.1.0_linux_amd64.tar.gz)
+    - For ARM 64-bit systems: [ube-cli_2.1.0_linux_arm64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.1.0/ube-cli_2.1.0_linux_arm64.tar.gz)
 2. Extract the archive from your downloads folder using the following command in your terminal:
     ```bash
-    $ tar -xzf ~/Downloads/ube_2.0.0_linux_386.tar.gz # or ube_2.0.0_linux_amd64.tar.gz or ube_2.0.0_linux_arm64.tar.gz
+    # Use the name of your downloaded release archive
+    $ tar -xzf ~/Downloads/example.tar.gz
     ```
 3. Move the extracted binary to a directory in your PATH for convenient access from any directory:
     ```bash
@@ -74,10 +76,10 @@ Ube (ooh-bay) is a program that displays statistics about your code. Ube will sh
     ```
 
 ### Windows <a name="windows"></a>
-1. Download the appropriate release archive for your platform from the [Latest Release](https://github.com/ramirezfernando/ube/releases/tag/v2.0.0) page:
-    - For 32-bit systems: [ube_2.0.0_windows_386.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.0.0/ube_2.0.0_windows_386.tar.gz)
-    - For 64-bit systems: [ube_2.0.0_windows_amd64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.0.0/ube_2.0.0_windows_amd64.tar.gz)
-    - For ARM 64-bit systems: [ube_2.0.0_windows_arm64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.0.0/ube_2.0.0_windows_arm64.tar.gz)
+1. Download the appropriate release archive for your platform from the [Latest Release](https://github.com/ramirezfernando/ube-cli/releases) page:
+    - For 32-bit systems: [ube-cli_2.1.0_windows_386.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.1.0/ube-cli_2.1.0_windows_386.tar.gz)
+    - For 64-bit systems: [ube-cli_2.1.0_windows_amd64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.1.0/ube-cli_2.1.0_windows_amd64.tar.gz)
+    - For ARM 64-bit systems: [ube-cli_2.1.0_windows_arm64.tar.gz](https://github.com/ramirezfernando/ube/releases/download/v2.1.0/ube-cli_2.1.0_windows_arm64.tar.gz)
 2. Extract the archive from your downloads folder using a tool like 7-Zip or WinRAR.
 3. Move the extracted binary (ube.exe) to a directory included in your system's PATH environment variable for convenient access. Alternatively, you can run the tool from its extracted location.
 4. Verify the installation:
@@ -86,7 +88,7 @@ Ube (ooh-bay) is a program that displays statistics about your code. Ube will sh
     ```
 
 ## Usage <a name="usage"></a>
-```bash
+```
 Ube is a code statistics tool for your terminal.
 
 Usage:

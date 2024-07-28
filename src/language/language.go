@@ -1,6 +1,6 @@
 package language
 
-var Exts = map[string]string{
+var Extensions = map[string]string{
 	".as":          "ActionScript",
 	".ada":         "Ada",
 	".adb":         "Ada",

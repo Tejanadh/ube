@@ -10,8 +10,9 @@ import (
 	"strconv"
 	"sync"
 	"time"
+	"ube/src/cmd"
 	"ube/src/language"
-	"ube/src/terminal"
+	"ube/src/tui"
 
 	"github.com/charmbracelet/bubbles/help"
 	"github.com/charmbracelet/bubbles/stopwatch"
@@ -21,23 +22,30 @@ import (
 	"github.com/charmbracelet/log"
 )
 
-type languageDetails struct {
+type languageInfo struct {
 	lines int
 	files int
 }
 
 func main() {
-	if len(os.Args) != 2 {
-		log.Fatal(`Usage: ube <folder>`)
+	if err := cmd.Execute(); err != nil {
+		log.Fatal(err)
 		os.Exit(1)
-	} else if _, err := os.Stat(os.Args[1]); os.IsNotExist(err) {
+	} else {
+		args := os.Args[1:] // Skip "ube"
+		if contains(args, "--help") || contains(args, "-h") || contains(args, "--version") || contains(args, "-v") {
+			os.Exit(0)
+		}
+	}
+
+	if _, err := os.Stat(os.Args[1]); os.IsNotExist(err) {
 		log.Fatal("ube: no such file or directory")
 		os.Exit(1)
 	}
 
 	path := os.Args[1]
 
-	m := terminal.Model{ElapsedTime: stopwatch.NewWithInterval(time.Millisecond), IsRunning: true}
+	m := tui.Model{ElapsedTime: stopwatch.NewWithInterval(time.Millisecond), IsRunning: true}
 	p := tea.NewProgram(m)
 
 	go func() {
@@ -52,16 +60,25 @@ func main() {
 	os.Exit(0)
 }
 
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
+}
+
 func getMessage(path string) tea.Msg {
 	stats, err := countLinesOfCode(path)
 	if err != nil {
 		log.Error(err)
-		return terminal.CompletionResult{Err: err}
+		return tui.CompletionResult{Err: err}
 	}
 
 	t := generateTable(stats)
 	h := help.New()
-	return terminal.CompletionResult{Table: t, Help: h}
+	return tui.CompletionResult{Table: t, Help: h}
 }
 
 func isValidFile(fileName string, info fs.DirEntry) bool {
@@ -73,7 +90,7 @@ func isValidFile(fileName string, info fs.DirEntry) bool {
 }
 
 func getLanguageName(fileName string) (string, bool) {
-	language, exists := language.Exts[getLanguageExtension(fileName)]
+	language, exists := language.Extensions[getLanguageExtension(fileName)]
 	if !exists {
 		return "", false
 	}
@@ -84,11 +101,11 @@ func getLanguageExtension(fileName string) string {
 	return filepath.Ext(fileName)
 }
 
-func countLinesOfCode(path string) (map[string]languageDetails, error) {
+func countLinesOfCode(path string) (map[string]languageInfo, error) {
 	var wg sync.WaitGroup
 	var mu sync.Mutex
 
-	lineCount := make(map[string]languageDetails)
+	lineCount := make(map[string]languageInfo)
 
 	err := filepath.WalkDir(path, func(currPath string, info fs.DirEntry, err error) error {
 		if err != nil {
@@ -112,7 +129,7 @@ func countLinesOfCode(path string) (map[string]languageDetails, error) {
 			mu.Lock()
 			ld, exists := lineCount[language]
 			if !exists {
-				ld = languageDetails{}
+				ld = languageInfo{}
 			}
 			ld.lines += lines
 			ld.files++
@@ -160,7 +177,7 @@ func countLinesOfFile(filePath string) (int, error) {
 	return count, err
 }
 
-func generateTable(lineCount map[string]languageDetails) table.Model {
+func generateTable(lineCount map[string]languageInfo) table.Model {
 	columns := []table.Column{
 		{Title: "Language", Width: 16},
 		{Title: "Lines", Width: 16},
@@ -170,10 +187,10 @@ func generateTable(lineCount map[string]languageDetails) table.Model {
 	rows := []table.Row{}
 	lineTotal := 0
 	fileTotal := 0
-	for language, details := range lineCount {
-		rows = append(rows, table.Row{language, strconv.Itoa(details.lines), strconv.Itoa(details.files)})
-		lineTotal += details.lines
-		fileTotal += details.files
+	for language, info := range lineCount {
+		rows = append(rows, table.Row{language, strconv.Itoa(info.lines), strconv.Itoa(info.files)})
+		lineTotal += info.lines
+		fileTotal += info.files
 	}
 
 	// Sort by lines of code

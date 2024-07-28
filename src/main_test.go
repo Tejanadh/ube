@@ -3,7 +3,7 @@ package main
 import (
 	"reflect"
 	"testing"
-	"ube/src/terminal"
+	"ube/src/tui"
 
 	"github.com/charmbracelet/bubbles/help"
 	"github.com/charmbracelet/bubbles/table"
@@ -11,21 +11,21 @@ import (
 )
 
 func TestGetMessage(t *testing.T) {
-	llc := map[string]languageDetails{
-		"Go":         {4, 1},
-		"OCaml":      {28, 1},
-		"Plain Text": {0, 1},
-		"JavaScript": {24, 1},
+	llc := map[string]languageInfo{
+		"Go":         {lines: 4, files: 1},
+		"OCaml":      {lines: 28, files: 1},
+		"Plain Text": {lines: 0, files: 1},
+		"JavaScript": {lines: 24, files: 1},
 	}
 
 	_, err := countLinesOfCode("../tests/data/nonexistent.txt")
 
 	tests := []struct {
 		path            string
-		expectedMessage terminal.CompletionResult
+		expectedMessage tui.CompletionResult
 	}{
-		{"../tests/data", terminal.CompletionResult{Table: generateTable(llc), Help: help.New()}},
-		{"../tests/data/nonexistent.txt", terminal.CompletionResult{Err: err}}, // Non-existent file
+		{"../tests/data", tui.CompletionResult{Table: generateTable(llc), Help: help.New()}},
+		{"../tests/data/nonexistent.txt", tui.CompletionResult{Err: err}}, // Non-existent file
 
 	}
 
@@ -41,16 +41,15 @@ func TestCountLinesOfCode(t *testing.T) {
 
 	tests := []struct {
 		path            string
-		expectedClocMap map[string]languageDetails
+		expectedClocMap map[string]languageInfo
 	}{
-		{"../tests/data/hello.go", map[string]languageDetails{"Go": {4, 1}}},
-		{"../tests/data/stack.ml", map[string]languageDetails{"OCaml": {28, 1}}},
-		{"../tests/data/empty.txt", map[string]languageDetails{"Plain Text": {0, 1}}},
-		{"../tests/data/person.js", map[string]languageDetails{"JavaScript": {24, 1}}},
-		{"../tests/data", map[string]languageDetails{"Go": {4, 1}, "OCaml": {28, 1}, "Plain Text": {0, 1}, "JavaScript": {24, 1}}}, // Directory
-		{"../tests/data/nonexistent.txt", map[string]languageDetails{}},                                                            // Non-existent file
-		{"../tests/data/unsupported.xyz", map[string]languageDetails{}},                                                            // Unsupported file extension
-
+		{"../tests/data/hello.go", map[string]languageInfo{"Go": {lines: 4, files: 1}}},
+		{"../tests/data/stack.ml", map[string]languageInfo{"OCaml": {lines: 28, files: 1}}},
+		{"../tests/data/empty.txt", map[string]languageInfo{"Plain Text": {lines: 0, files: 1}}},
+		{"../tests/data/person.js", map[string]languageInfo{"JavaScript": {lines: 24, files: 1}}},
+		{"../tests/data", map[string]languageInfo{"Go": {lines: 4, files: 1}, "OCaml": {lines: 28, files: 1}, "Plain Text": {lines: 0, files: 1}, "JavaScript": {lines: 24, files: 1}}}, // Directory
+		{"../tests/data/nonexistent.txt", map[string]languageInfo{}},                                                                                                                    // Non-existent file
+		{"../tests/data/unsupported.xyz", map[string]languageInfo{}},                                                                                                                    // Unsupported file extension
 	}
 
 	for _, tt := range tests {
@@ -84,10 +83,10 @@ func TestCountLinesOfFile(t *testing.T) {
 }
 
 func TestGenerateTable(t *testing.T) {
-	llc := map[string]languageDetails{
-		"Go":     {100, 1},
-		"Python": {200, 1},
-		"Java":   {150, 1},
+	llc := map[string]languageInfo{
+		"Go":     {lines: 100, files: 1},
+		"Python": {lines: 200, files: 1},
+		"Java":   {lines: 150, files: 1},
 	}
 
 	expectedColumns := []table.Column{

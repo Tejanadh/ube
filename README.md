@@ -18,7 +18,6 @@ Ube (ooh-bay) is a program that displays statistics about your code. Ube will sh
    - [Linux](#linux)
    - [Windows](#windows)
 - [Usage](#usage)
-- [Common Issues](#common-issues)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -30,6 +29,7 @@ Ube (ooh-bay) is a program that displays statistics about your code. Ube will sh
     - [Bubbles](https://github.com/charmbracelet/bubbles) - TUI components for Bubble Tea
     - [Lip Gloss](https://github.com/charmbracelet/lipgloss) - Style definitions for Bubble Tea
     - [Log](https://github.com/charmbracelet/log) - A minimal, colorful Go logging library
+    - [Cobra](https://github.com/spf13/cobra) - A Commander for modern Go CLI interactions
 
 ## Installation <a name="installation"></a>
 
@@ -48,7 +48,7 @@ Ube (ooh-bay) is a program that displays statistics about your code. Ube will sh
     ```
 4. Verify the installation (might have to allow in settings):
     ```
-    $ ube
+    $ ube -v
     ```
 
 ### Linux <a name="linux"></a>
@@ -70,7 +70,7 @@ Ube (ooh-bay) is a program that displays statistics about your code. Ube will sh
     ```
 5. Verify the installation:
     ```bash
-    $ ube
+    $ ube -v
     ```
 
 ### Windows <a name="windows"></a>
@@ -82,18 +82,24 @@ Ube (ooh-bay) is a program that displays statistics about your code. Ube will sh
 3. Move the extracted binary (ube.exe) to a directory included in your system's PATH environment variable for convenient access. Alternatively, you can run the tool from its extracted location.
 4. Verify the installation:
     ```
-    $ ube
+    $ ube -v
     ```
 
 ## Usage <a name="usage"></a>
 ```bash
-$ ube ./your/path
-```
+Ube is a code statistics tool for your terminal.
 
-## Common Issues <a name="common-issues"></a>
-### “ube” can’t be opened because Apple cannot check it for malicious software.
-1. Naviagte to `Settings` > `Security & Privacy`.
-2. Under `General` tab, click "Allow Anyway" next to the message about the app being blocked.
+Usage:
+  ube [path] [flags]
+
+Examples:
+  $ ube /path/to/directory
+  $ ube /path/to/file.go
+
+Flags:
+  -h, --help      help for ube
+  -v, --version   version for ube
+```
 
 ## Contributing <a name="contributing"></a>
 Contributions are welcome! Please check the [Contributing Guidelines](CONTRIBUTING.md) for a few helpful tips!
